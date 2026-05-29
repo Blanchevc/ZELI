@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZELI — Product Detail</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav class="navbar">
+    <a href="index.html" class="nav-left">
+        <img src="Assets/logo.png" alt="ZELI Logo" style="height: 40px; width: auto;">
+         <span class="nav-brand-name">ZELI</span>
+       
+    
+    </a>
+    <div class="nav-right">
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="shop.html" class="nav-link">Shop</a></li>
+        </ul>
+        <a href="cart.html" class="nav-cart">
+            <svg viewBox="0 0 24 24" width="20" height="20" stroke="currentColor" fill="none">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+        </a>
+    </div>
+</nav>
+
+  <main class="product-container">
+    <div class="product-detail-grid">
+      <div class="product-gallery-side">
+        <div class="main-product-frame">
+          <img id="main-view-image" src="assets/pattern.png" alt="Product">
+        </div>
+      </div>
+
+      <div class="product-info-side">
+        <span class="product-meta-tag">Limited Edition Block</span>
+        <h1 class="product-detail-title">Item No. 01 — Silk Wool Blend</h1>
+        <p class="product-detail-price">€145.00</p>
+        
+        <div class="selector-section">
+          <h3 class="selector-label">Select Color: <span id="selected-color-text">Oatmeal</span></h3>
+          <div class="color-options-row">
+            <button class="color-dot-btn active" style="background-color: #dfd5c6;" onclick="selectColor('Oatmeal', this)"></button>
+            <button class="color-dot-btn" style="background-color: #1a2238;" onclick="selectColor('Midnight Navy', this)"></button>
+          </div>
+        </div>
+
+        <div class="selector-section">
+          <h3 class="selector-label">Select Size</h3>
+          <div class="size-options-row">
+            <button class="size-btn" onclick="selectSize('S', this)">S</button>
+            <button class="size-btn active" onclick="selectSize('M', this)">M</button>
+            <button class="size-btn" onclick="selectSize('L', this)">L</button>
+          </div>
+        </div>
+
+        <div class="selector-section">
+          <h3 class="selector-label">Quantity</h3>
+          <div style="display: flex; align-items: center; gap: 1rem;">
+            <button type="button" class="size-btn" style="min-width: 40px; padding: 0.5rem;" onclick="adjustQty(-1)">-</button>
+            <span id="quantity-count" style="font-size: 1.1rem; font-weight: 500; min-width: 20px; text-align: center;">1</span>
+            <button type="button" class="size-btn" style="min-width: 40px; padding: 0.5rem;" onclick="adjustQty(1)">+</button>
+          </div>
+        </div>
+
+        <button type="button" class="add-to-bag-btn" onclick="addToCart()">
+          <span>Add to Request Bag</span>
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let currentData = {
+      title: "Item No. 01 — Silk Wool Blend",
+      price: 145.00,
+      color: "Oatmeal",
+      size: "M",
+      quantity: 1
+    };
+
+    function selectColor(colorName, element) {
+      document.getElementById('selected-color-text').innerText = colorName;
+      currentData.color = colorName;
+      document.querySelectorAll('.color-dot-btn').forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function selectSize(sizeName, element) {
+      currentData.size = sizeName;
+      document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function adjustQty(amount) {
+      let currentQty = currentData.quantity + amount;
+      if (currentQty < 1) currentQty = 1;
+      currentData.quantity = currentQty;
+      document.getElementById('quantity-count').innerText = currentQty;
+    }
+
+    function addToCart() {
+      let cart = JSON.parse(localStorage.getItem('zeli_cart')) || [];
+      cart.push(currentData);
+      localStorage.setItem('zeli_cart', JSON.stringify(cart));
+      window.location.href = 'cart.html';
+    }
+  </script>
+</body>
+</html>

@@ -381,6 +381,9 @@ body::before {
 
 .main-product-frame {
   background-color: rgba(14, 18, 64, 0.02);
+  background-image: url('pattern.png');
+  background-size: cover;             
+  background-position: center;         
   aspect-ratio: 3 / 4;
   border: 1px solid rgba(14, 18, 64, 0.05);
   display: flex;
